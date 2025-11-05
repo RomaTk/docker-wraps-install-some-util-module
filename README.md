@@ -75,6 +75,21 @@ function main {
 }
 
 # Depend on util package
+function isRunDownloadWrap {
+    local version="$1"
+    local os="$2"
+    local arch="$3"
+
+    if [ -f "./dockers/<util-name>/install/saved-versions/${os}-${arch}-${version}.tar.gz" ]; then
+        echo "no"
+        exit 0
+    fi
+
+    echo "yes"
+    exit 0
+}
+
+# Depend on util package
 function formatArch {
     local arch="$1"
 
