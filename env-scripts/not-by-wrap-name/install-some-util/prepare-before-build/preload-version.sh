@@ -7,6 +7,8 @@ function preloadVersion {
     local prefix="$4"
     local path_to_docker="$5"
 
+    local is_run_download_wrap
+
     local file_config_download_docker_context="$path_to_docker/download/with-configs/configs/versions.cfg"
 
     if [ -z "$version" ]; then
@@ -19,6 +21,16 @@ function preloadVersion {
 
     (changeFileConfigDownloadDockerContext "$version" "$os" "$arch" "$file_config_download_docker_context")
     [ $? -ne 0 ] && exit 1
+
+    is_run_download_wrap=$(isRunDownloadWrap "$version" "$os" "$arch")
+    if [ $? -ne 0 ]; then
+        echo "Problem with isRunDownloadWrap" >&2
+        exit 1
+    fi
+    
+    if [ "$is_run_download_wrap" == "no" ]; then
+        exit 0
+    fi
 
     echo "starting container..."
     (./envs.sh start "$prefix-download-with-configs")
