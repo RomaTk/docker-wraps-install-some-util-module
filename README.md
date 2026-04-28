@@ -1,5 +1,5 @@
 # docker-wraps-install-some-util-module
-Implements module install some util for docker wraps environment.
+Implements module install-some-util for docker wraps environment.
 
 This will provide env-scripts for common way to install some utils in the docker wraps environment. `env-scripts/not-by-wrap-name/install-some-util`
 
